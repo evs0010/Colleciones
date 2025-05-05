@@ -58,8 +58,25 @@ public class Main {
       opcion = Integer.parseInt(sc.nextLine());
   
       switch (opcion) {
-          case 1 -> {  }
-          case 2 -> {  }
+          case 1 -> { 
+             System.out.print("Nombre: ");
+          String nombre = sc.nextLine();
+          System.out.print("Apellido: ");
+          String apellido = sc.nextLine();
+          System.out.print("DNI: ");
+          String dni = sc.nextLine();
+          System.out.print("ID: ");
+          String id = sc.nextLine();
+          gestor.registrarAlumno(new Alumno(nombre, apellido, dni, id));
+         }
+
+          case 2 -> {   
+            System.out.print("Nombre del curso: ");
+          String nombre = sc.nextLine();
+          System.out.print("Código del curso: ");
+          String codigo = sc.nextLine();
+          gestor.agregarCurso(new Curso(nombre, codigo));
+       }
           case 3 -> { }
           case 4 -> {  }
           case 5 -> {  }
