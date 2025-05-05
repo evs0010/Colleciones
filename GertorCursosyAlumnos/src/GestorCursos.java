@@ -45,4 +45,38 @@ public class GestorCursos {
             lista.remove(alumno);
         }
     }
+    public Set<Alumno> getAlumnos() {
+        return alumnos;
+    }
+    
+    public Alumno buscarAlumnoPorDni(String dni) {
+        for (Alumno a : alumnos) {
+            if (a.getDni().equals(dni)) return a;
+        }
+        return null;
+    }
+    
+    public void mostrarCursosDeAlumno(String dni) {
+        Alumno alumno = buscarAlumnoPorDni(dni);
+        if (alumno == null) {
+            System.out.println("Alumno no encontrado.");
+            return;
+        }
+    
+        System.out.println("Cursos de " + alumno.getNombre() + ":");
+        for (Map.Entry<Curso, Set<Alumno>> entry : inscripciones.entrySet()) {
+            if (entry.getValue().contains(alumno)) {
+                System.out.println("- " + entry.getKey());
+            }
+        }
+    }
+    
+    public void eliminarCurso(String codigo) {
+        Curso curso = buscarCursoPorCodigo(codigo);
+        if (curso != null) {
+            cursos.remove(curso);
+            inscripciones.remove(curso);
+        }
+    }
+    
 }
