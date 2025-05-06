@@ -37,132 +37,42 @@ public class GestorCursos {
 
 
     //------- 3--------------MOSTRAR TODOS LOS ALUMNOS ordenados alfabéticamente-----------------------
-    public void mostrarAlumnos(Scanner sc) {
+    public void mostrarAlumnos() {
+                //Verifica que existan alumnos
         if (alumnos.isEmpty()) {
             System.out.println("No hay alumnos registrados.");
             return;
         }
-    
-        System.out.println("¿Cómo deseas ordenar los alumnos?");
-        System.out.println("1. Por nombre y apellido");
-        System.out.println("2. Por DNI");
-        System.out.println("3. Por código");
-    
-        int opcion = sc.nextInt();
-        sc.nextLine(); // Limpiar buffer
+    //copia la coleccion set, la cual no se puede ordenar en un ArrayList ordenable 
+        List<Alumno> listaOrdenada = new ArrayList<>(alumnos);
+        Collections.sort(listaOrdenada, Comparator.comparing(Alumno::getNombre));
+        //Ordenamos la coleccion por orden alfabetico del nombre
 
-        Comparator<Alumno> comparador;
+        
     
-        switch (opcion) {
-            case 1:
-                comparador = new Comparator<Alumno>() {
-                    public int compare(Alumno a1, Alumno a2) {
-                        int resultado = a1.getNombre().compareToIgnoreCase(a2.getNombre());
-                        if (resultado == 0) {
-                            resultado = a1.getApellido().compareToIgnoreCase(a2.getApellido());
-                        }
-                        return resultado;
-                    }
-                };
-                break;
-            case 2:
-                comparador = new Comparator<Alumno>() {
-                    public int compare(Alumno a1, Alumno a2) {
-                        return a1.getDni().compareToIgnoreCase(a2.getDni());
-                    }
-                };
-                break;
-            case 3:
-                comparador = new Comparator<Alumno>() {
-                    public int compare(Alumno a1, Alumno a2) {
-                        return a1.getCodigo().compareToIgnoreCase(a2.getCodigo());
-                    }
-                };
-                break;
-
-            default:
-                System.out.println("Opción no válida. Se ordenará por nombre y apellido.");
-                comparador = new Comparator<Alumno>() {
-                    public int compare(Alumno a1, Alumno a2) {
-                        int resultado = a1.getNombre().compareToIgnoreCase(a2.getNombre());
-                        if (resultado == 0) {
-                            resultado = a1.getApellido().compareToIgnoreCase(a2.getApellido());
-                        }
-                        return resultado;
-                    }
-                };
-                break;
-        }
-    
-        mostrarColeccionOrdenada(alumnos, comparador, "Lista de alumnos ordenados:");
-    }
-    public void mostrarColeccionOrdenada(Collection<Alumno> coleccion, Comparator<Alumno> comparador, String titulo) {
-        List<Alumno> lista = new ArrayList<>(coleccion);
-        Collections.sort(lista, comparador);
-    
-        System.out.println(titulo);
-        for (Alumno a : lista) {
+        System.out.println("Lista de alumnos (ordenados por nombre):");
+        for (Alumno a : listaOrdenada) {
             System.out.println(a);
         }
     }
     
+
+    //- 4---------------------MOSTRAR TODOS LOS CURSOS ORDENADOS POR ID----------------------
+    public void mostrarCursos() {
+        if (cursos.isEmpty()) {
+            System.out.println("No hay cursos registrados.");
+            return;
+        }
     
+        // Ordenar ascendentemente la colecciób por codigo 
+        Collections.sort(cursos, Comparator.comparing(Curso::getCodigo));  //curso1.getCodigo().compareTo(curso2.getCodigo()) .reversed()
+
     
-
-    //- 4---------------------MOSTRAR TODOS LOS CURSOS ORDENADOS----------------------
- public void mostrarCursos(Scanner sc) {
-    if (cursos.isEmpty()) {
-        System.out.println("No hay cursos registrados.");
-        return;
+        System.out.println("Lista de cursos (ordenados por código):");
+        for (Curso c : cursos) {
+            System.out.println(c);
+        }
     }
-
-    System.out.println("¿Cómo deseas ordenar los cursos?");
-    System.out.println("1. Por código");
-    System.out.println("2. Por nombre");
-    System.out.print("Elige una opción (1-2): ");
-
-    int opcion = sc.nextInt();
-    sc.nextLine(); // limpiar el buffer
-
-    Comparator<Curso> comparador;
-
-    switch (opcion) {
-        case 1:
-            comparador = new Comparator<Curso>() {
-                @Override
-                public int compare(Curso c1, Curso c2) {
-                    return c1.getCodigo().compareToIgnoreCase(c2.getCodigo());
-                }
-            };
-            break;
-        case 2:
-            comparador = new Comparator<Curso>() {
-                @Override
-                public int compare(Curso c1, Curso c2) {
-                    return c1.getNombre().compareToIgnoreCase(c2.getNombre());
-                }
-            };
-            break;
-        default:
-            System.out.println("Opción no válida. Se ordenará por código.");
-            comparador = new Comparator<Curso>() {
-                @Override
-                public int compare(Curso c1, Curso c2) {
-                    return c1.getCodigo().compareToIgnoreCase(c2.getCodigo());
-                }
-            };
-            break;
-    }
-
-    // Ordenar la lista con el comparador seleccionado
-    Collections.sort(cursos, comparador);
-
-    System.out.println("Lista de cursos ordenados:");
-    for (Curso c : cursos) {
-        System.out.println(c);
-    }
-}
-
     
     
 
