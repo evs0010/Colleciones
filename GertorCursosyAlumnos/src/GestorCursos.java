@@ -193,6 +193,7 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
     }
 
 
+    System.out.println("Cursos en los que está inscrito " + alumnoEncontrado.getNombre() + ":");
     boolean tieneCursos = false;
     for (Curso c : cursos) {
         Set<Alumno> inscritos = inscripciones.get(c); //busca en el mapa los alumnos inscritos a c
@@ -201,7 +202,6 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
             tieneCursos = true;
         }
     }
-    System.out.println("Cursos en los que está inscrito " + alumnoEncontrado.getNombre() + ":");
 
 
     if (!tieneCursos) {
