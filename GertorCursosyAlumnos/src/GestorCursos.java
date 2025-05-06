@@ -192,23 +192,23 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
         return;
     }
 
-    System.out.println("Cursos en los que está inscrito " + alumnoEncontrado.getNombre() + ":");
 
     boolean tieneCursos = false;
     for (Curso c : cursos) {
-        Set<Alumno> inscritos = inscripciones.get(c);
-        if (inscritos != null && inscritos.contains(alumnoEncontrado)) {
+        Set<Alumno> inscritos = inscripciones.get(c); //busca en el mapa los alumnos inscritos a c
+        if (inscritos.contains(alumnoEncontrado)) {  // verifica q dicho alumno esta dentro del conjunto.  //inscritos != null && NullPointerException
             System.out.println( c.getNombre());
             tieneCursos = true;
         }
     }
+    System.out.println("Cursos en los que está inscrito " + alumnoEncontrado.getNombre() + ":");
+
 
     if (!tieneCursos) {
         System.out.println("Este alumno no está inscrito en ningún curso.");
     }
 }
 
-//----9----------MOSTRAR LOS CURSOS A LOS QUE ESTÁ INSCRITO UN ALUMN-------------
 public void eliminarAlumno(Scanner sc) {
     System.out.print("Nombre del alumno: ");
     String nombre = sc.nextLine().trim();
@@ -238,7 +238,6 @@ public void eliminarAlumno(Scanner sc) {
 }
 
 
-//---------------- Mostrar 
 public void eliminarCurso(Scanner sc) {
     System.out.print("Nombre del curso: ");
     String nombreCurso = sc.nextLine().trim();
