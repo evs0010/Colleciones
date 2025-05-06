@@ -9,7 +9,7 @@ public class GestorCursos {
   // ----------- MÉTODOS PRINCIPALES -----------
 
 
-//------------AÑADIR CURSOS------------
+//---1---------AÑADIR CURSOS------------
     public void añadirCurso(Scanner sc) {
         System.out.print("Nombre del curso: ");
         String nombre = sc.nextLine();
@@ -20,7 +20,7 @@ public class GestorCursos {
 
 
 
-//-------------AÑADIR ALUMNOS-----------------
+//------- 2------AÑADIR ALUMNOS-----------------
     public void registrarAlumno(Scanner sc) {
         System.out.print("Nombre: ");
         String nombre = sc.nextLine();
@@ -35,7 +35,7 @@ public class GestorCursos {
 
 
 
-    //---------------------MOSTRAR TODOS LOS ALUMNOS ordenados alfabéticamente-----------------------
+    //------- 3--------------MOSTRAR TODOS LOS ALUMNOS ordenados alfabéticamente-----------------------
     public void mostrarAlumnos() {
                 //Verifica que existan alumnos
         if (alumnos.isEmpty()) {
@@ -54,7 +54,7 @@ public class GestorCursos {
     }
     
 
-    //----------------------MOSTRAR TODOS LOS CURSOS ORDENADOS POR ID----------------------
+    //- 4---------------------MOSTRAR TODOS LOS CURSOS ORDENADOS POR ID----------------------
     public void mostrarCursos() {
         if (cursos.isEmpty()) {
             System.out.println("No hay cursos registrados.");
@@ -73,7 +73,7 @@ public class GestorCursos {
     
     
 
-    // ------BUSCAR ALUMNO POR CODIGO------
+    // -- 5----BUSCAR ALUMNO POR CODIGO------
 
     public void buscarAlumno(Scanner sc) {
         System.out.print("Introduce el código del alumno: ");
@@ -95,7 +95,7 @@ public class GestorCursos {
     }
 
 
-//------ INSCRIBIR UN ALUMNO A UN CURSO----------------
+//----6-- INSCRIBIR UN ALUMNO A UN CURSO----------------
     public void inscribirAlumnoACurso(Scanner sc) {
         
         System.out.print("Nombre del alumno: ");
@@ -140,7 +140,7 @@ public class GestorCursos {
         System.out.println("Alumno inscrito correctamente.");
     }
 
-    //-------------MOSTRAR LOS ALUMNOS QUE TIENE UN CURSO-------------------------------
+    //------7-------MOSTRAR LOS ALUMNOS QUE TIENE UN CURSO-------------------------------
 
     public void mostrarAlumnosDeUnCurso(Scanner sc) {
         System.out.print("Nombre del curso: ");
@@ -169,7 +169,7 @@ public class GestorCursos {
         }
     }
     
-//--------------MOSTRAR LOS CURSOS A LOS QUE ESTÁ INSCRITO UN ALUMN-------------
+//----8----------MOSTRAR LOS CURSOS A LOS QUE ESTÁ INSCRITO UN ALUMN-------------
 public void mostrarCursosDeUnAlumno(Scanner sc) {
     System.out.print("Nombre del alumno: ");
     String nombre = sc.nextLine().trim();
@@ -205,7 +205,7 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
     }
 }
 
-
+//----9----------MOSTRAR LOS CURSOS A LOS QUE ESTÁ INSCRITO UN ALUMN-------------
 public void eliminarAlumno(Scanner sc) {
     System.out.print("Nombre del alumno: ");
     String nombre = sc.nextLine().trim();
