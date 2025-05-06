@@ -61,7 +61,7 @@ public class GestorCursos {
             return;
         }
     
-        // Ordenar ascendentemente la colecciób por codigo 
+        // Ordenar ascendentemente la colección por codigo 
         Collections.sort(cursos, Comparator.comparing(Curso::getCodigo));  //curso1.getCodigo().compareTo(curso2.getCodigo()) .reversed()
 
     
