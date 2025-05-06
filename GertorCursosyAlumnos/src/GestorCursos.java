@@ -161,8 +161,8 @@ public class GestorCursos {
             return;
         }
     
-        Set<Alumno> inscritos = inscripciones.get(cursoEncontrado);
-        if (inscritos == null || inscritos.isEmpty()) { //no hay cursos con dicho nombre y alumnos o dicho curso no está en la colección
+        Set<Alumno> inscritos = inscripciones.get(cursoEncontrado);  //Busca en el Map llamado inscripciones si existe una clave igual a cursoEncontrado
+        if (inscritos == null || inscritos.isEmpty()) { //verifica q ese curso está dentro de la colección y que no esta vacío (contiene alums)
             System.out.println("No hay alumnos inscritos en este curso.");
         } else {
             System.out.println("Alumnos en el curso " + cursoEncontrado.getNombre() + ":");
@@ -197,7 +197,7 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
     boolean tieneCursos = false;
     for (Curso c : cursos) {
         Set<Alumno> inscritos = inscripciones.get(c); //busca en el mapa los alumnos inscritos a c
-        if (inscritos != null && inscritos.contains(alumnoEncontrado)) {  // verifica q dicho alumno esta dentro del conjunto.  //inscritos != null && NullPointerException
+        if (inscritos != null && inscritos.contains(alumnoEncontrado)) {  // verifica q dicho alumno esta dentro del conjunto.  //inscritos != null && NullPointerException si no existe
             System.out.println( c.getNombre());
             tieneCursos = true;
         }
