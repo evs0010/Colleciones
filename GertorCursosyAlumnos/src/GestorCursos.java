@@ -5,78 +5,265 @@ public class GestorCursos {
     private Set<Alumno> alumnos = new HashSet<>();
     private Map<Curso, Set<Alumno>> inscripciones = new HashMap<>();
 
-    public void agregarCurso(Curso curso) {
-        cursos.add(curso);
+   
+  // ----------- MÉTODOS PRINCIPALES -----------
+
+
+//------------AÑADIR CURSOS------------
+    public void añadirCurso(Scanner sc) {
+        System.out.print("Nombre del curso: ");
+        String nombre = sc.nextLine();
+        System.out.print("Código del curso: ");
+        String codigo = sc.nextLine();
+        cursos.add(new Curso(nombre, codigo));
     }
 
-    public void registrarAlumno(Alumno alumno) {
-        alumnos.add(alumno);
+
+
+//-------------AÑADIR ALUMNOS-----------------
+    public void registrarAlumno(Scanner sc) {
+        System.out.print("Nombre: ");
+        String nombre = sc.nextLine();
+        System.out.print("Apellido: ");
+        String apellido = sc.nextLine();
+        System.out.print("DNI: ");
+        String dni = sc.nextLine();
+        System.out.print("Código interno: ");
+        String codigo = sc.nextLine();
+        alumnos.add(new Alumno(nombre, dni, apellido, codigo));
     }
 
-    public void inscribirAlumno(Curso curso, Alumno alumno) {
-        if (cursos.contains(curso) && alumnos.contains(alumno)) {
-            inscripciones.computeIfAbsent(curso, k -> new HashSet<>()).add(alumno);
+
+
+    //---------------------MOSTRAR TODOS LOS ALUMNOS ordenados alfabéticamente-----------------------
+    public void mostrarAlumnos() {
+                //Verifica que existan alumnos
+        if (alumnos.isEmpty()) {
+            System.out.println("No hay alumnos registrados.");
+            return;
+        }
+    //copia la coleccion set, la cual no se puede ordenar en un ArrayList ordenable 
+        List<Alumno> listaOrdenada = new ArrayList<>(alumnos);
+        Collections.sort(listaOrdenada, Comparator.comparing(Alumno::getNombre));
+        //Ordenamos la coleccion por orden alfabetico del nombre
+    
+        System.out.println("Lista de alumnos (ordenados por nombre):");
+        for (Alumno a : listaOrdenada) {
+            System.out.println(a);
         }
     }
+    
 
+    //----------------------MOSTRAR TODOS LOS CURSOS ORDENADOS POR ID----------------------
     public void mostrarCursos() {
-        cursos.forEach(System.out::println);
-    }
-
-    public void mostrarAlumnosPorCurso(Curso curso) {
-        if (inscripciones.containsKey(curso)) {
-            System.out.println("Alumnos en el curso " + curso + ":");
-            inscripciones.get(curso).forEach(System.out::println);
-        } else {
-            System.out.println("No hay alumnos inscritos en " + curso);
+        if (cursos.isEmpty()) {
+            System.out.println("No hay cursos registrados.");
+            return;
         }
-    }
+    
+        // Ordenar ascendentemente la colecciób por codigo 
+        Collections.sort(cursos, Comparator.comparing(Curso::getCodigo));  //curso1.getCodigo().compareTo(curso2.getCodigo()) .reversed()
 
-    public Curso buscarCursoPorCodigo(String codigo) {
+    
+        System.out.println("Lista de cursos (ordenados por código):");
         for (Curso c : cursos) {
-            if (c.getCodigo().equals(codigo)) return c;
+            System.out.println(c);
         }
-        return null;
+    }
+    
+    
+
+    // ------BUSCAR ALUMNO POR CODIGO------
+
+    public void buscarAlumno(Scanner sc) {
+        System.out.print("Introduce el código del alumno: ");
+        String codigo = sc.nextLine();
+        Alumno encontrado = null;
+        for (Alumno a : alumnos) {
+
+            if (a.getCodigo().equals(codigo)) {  //.equalsIgnoreCase()
+                encontrado = a;
+                break;
+            }
+        }
+    
+        if (encontrado != null) {
+            System.out.println("Alumno encontrado: " + encontrado);
+        } else {
+            System.out.println("Alumno no encontrado.");
+        }
     }
 
-    public void eliminarAlumno(Alumno alumno) {
-        alumnos.remove(alumno);
-        for (Set<Alumno> lista : inscripciones.values()) {
-            lista.remove(alumno);
-        }
-    }
-    public Set<Alumno> getAlumnos() {
-        return alumnos;
-    }
-    
-    public Alumno buscarAlumnoPorDni(String dni) {
+
+//------ INSCRIBIR UN ALUMNO A UN CURSO----------------
+    public void inscribirAlumnoACurso(Scanner sc) {
+        
+        System.out.print("Nombre del alumno: ");
+        String nombre = sc.nextLine().trim();
+        System.out.print("Apellido del alumno: ");
+        String apellido = sc.nextLine().trim();
+       
+        
+        Alumno alumnoEncontrado = null;
         for (Alumno a : alumnos) {
-            if (a.getDni().equals(dni)) return a;
+            if (a.getNombre().equalsIgnoreCase(nombre) && a.getApellido().equalsIgnoreCase(apellido)) {
+                alumnoEncontrado = a;
+                break;
+            }
         }
-        return null;
-    }
-    
-    public void mostrarCursosDeAlumno(String dni) {
-        Alumno alumno = buscarAlumnoPorDni(dni);
-        if (alumno == null) {
+        if (alumnoEncontrado == null) {
             System.out.println("Alumno no encontrado.");
             return;
         }
     
-        System.out.println("Cursos de " + alumno.getNombre() + ":");
-        for (Map.Entry<Curso, Set<Alumno>> entry : inscripciones.entrySet()) {
-            if (entry.getValue().contains(alumno)) {
-                System.out.println("- " + entry.getKey());
+        System.out.print("Nombre del curso: ");
+        String nombreCurso = sc.nextLine().trim();
+        
+        Curso cursoEncontrado = null;
+        for (Curso c : cursos) {
+            if (c.getNombre().equalsIgnoreCase(nombreCurso)) {
+                cursoEncontrado = c;
+                break;
+            }
+        }
+    
+        if (cursoEncontrado == null) {
+            System.out.println("Curso no encontrado.");
+            return;
+        }
+    
+        if (!inscripciones.containsKey(cursoEncontrado)) {           //Si inscripciones NO contiene ya el curso como clave...
+            inscripciones.put(cursoEncontrado, new HashSet<>());   //...entonces crea una nueva entrada para ese curso, con un conjunto vacío de alumnos.
+        }
+    
+        inscripciones.get(cursoEncontrado).add(alumnoEncontrado);
+        System.out.println("Alumno inscrito correctamente.");
+    }
+
+    //-------------MOSTRAR LOS ALUMNOS QUE TIENE UN CURSO-------------------------------
+
+    public void mostrarAlumnosDeUnCurso(Scanner sc) {
+        System.out.print("Nombre del curso: ");
+        String nombreCurso = sc.nextLine().trim();
+    
+        Curso cursoEncontrado = null;
+        for (Curso c : cursos) {
+            if (c.getNombre().equals(nombreCurso)) {
+                cursoEncontrado = c;
+                break;
+            }
+        }
+        if (cursoEncontrado == null) {
+            System.out.println("Curso no encontrado.");
+            return;
+        }
+    
+        Set<Alumno> inscritos = inscripciones.get(cursoEncontrado);
+        if (inscritos == null || inscritos.isEmpty()) { //no hay cursos con dicho nombre y alumnos o dicho curso no está en la colección
+            System.out.println("No hay alumnos inscritos en este curso.");
+        } else {
+            System.out.println("Alumnos en el curso " + cursoEncontrado.getNombre() + ":");
+            for (Alumno a : inscritos) {
+                System.out.println(a);
             }
         }
     }
     
-    public void eliminarCurso(String codigo) {
-        Curso curso = buscarCursoPorCodigo(codigo);
-        if (curso != null) {
-            cursos.remove(curso);
-            inscripciones.remove(curso);
+//--------------MOSTRAR LOS CURSOS A LOS QUE ESTÁ INSCRITO UN ALUMN-------------
+public void mostrarCursosDeUnAlumno(Scanner sc) {
+    System.out.print("Nombre del alumno: ");
+    String nombre = sc.nextLine().trim();
+    System.out.print("Apellido del alumno: ");
+    String apellido = sc.nextLine().trim();
+
+    Alumno alumnoEncontrado = null;
+    for (Alumno a : alumnos) {
+        if (a.getNombre().equals(nombre) && a.getApellido().equals(apellido)) {
+            alumnoEncontrado = a;
+            break;
         }
     }
-    
+
+    if (alumnoEncontrado == null) {
+        System.out.println("Alumno no encontrado.");
+        return;
+    }
+
+    System.out.println("Cursos en los que está inscrito " + alumnoEncontrado.getNombre() + ":");
+
+    boolean tieneCursos = false;
+    for (Curso c : cursos) {
+        Set<Alumno> inscritos = inscripciones.get(c);
+        if (inscritos != null && inscritos.contains(alumnoEncontrado)) {
+            System.out.println( c.getNombre());
+            tieneCursos = true;
+        }
+    }
+
+    if (!tieneCursos) {
+        System.out.println("Este alumno no está inscrito en ningún curso.");
+    }
+}
+
+
+public void eliminarAlumno(Scanner sc) {
+    System.out.print("Nombre del alumno: ");
+    String nombre = sc.nextLine().trim();
+    System.out.print("Apellido del alumno: ");
+    String apellido = sc.nextLine().trim();
+
+    Alumno alumnoEncontrado = null;
+    for (Alumno a : alumnos) {
+        if (a.getNombre().equalsIgnoreCase(nombre) && a.getApellido().equalsIgnoreCase(apellido)) {
+            alumnoEncontrado = a;
+            break;
+        }
+    }
+
+    if (alumnoEncontrado == null) {
+        System.out.println("Alumno no encontrado.");
+        return;
+    }
+
+    alumnos.remove(alumnoEncontrado);
+
+    for (Set<Alumno> lista : inscripciones.values()) {
+        lista.remove(alumnoEncontrado);
+    }
+
+    System.out.println("Alumno eliminado correctamente.");
+}
+
+public void eliminarCurso(Scanner sc) {
+    System.out.print("Nombre del curso: ");
+    String nombreCurso = sc.nextLine().trim();
+
+    Curso cursoEncontrado = null;
+    for (Curso c : cursos) {
+        if (c.getNombre().equalsIgnoreCase(nombreCurso)) {
+            cursoEncontrado = c;
+            break;
+        }
+    }
+
+    if (cursoEncontrado == null) {
+        System.out.println("Curso no encontrado.");
+        return;
+    }
+
+    cursos.remove(cursoEncontrado);
+    inscripciones.remove(cursoEncontrado);
+
+    System.out.println("Curso eliminado correctamente.");
+}
+
+  
+
+public List<Curso> getCursos() {
+    return cursos;
+}
+public Set<Alumno> getAlumnos() {
+    return alumnos;
+}
+
 }
