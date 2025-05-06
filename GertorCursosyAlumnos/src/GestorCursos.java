@@ -208,6 +208,7 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
         System.out.println("Este alumno no está inscrito en ningún curso.");
     }
 }
+//--------------ELIMINAR ALUMNO-------------
 
 public void eliminarAlumno(Scanner sc) {
     System.out.print("Nombre del alumno: ");
@@ -236,6 +237,7 @@ public void eliminarAlumno(Scanner sc) {
 
     System.out.println("Alumno eliminado correctamente.");
 }
+//--------------ELIMINAR CURSO-------------
 
 
 public void eliminarCurso(Scanner sc) {
