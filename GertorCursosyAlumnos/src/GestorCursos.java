@@ -308,6 +308,7 @@ public void eliminarCurso(Scanner sc) {
         // Llamamos al método genérico para mostrar cursos ordenados
         mostrarColeccionOrdenada(cursos, comparador);
     }
+    //GENÉRICO
     public <T> void mostrarColeccionOrdenada(Collection<T> coleccion, Comparator<T> comparador) { //método genérico funciona con cualquier tipo T curso,alum
 
         List<T> lista = new ArrayList<>(coleccion); //Copia la coleccion a un arraylist ordenable
