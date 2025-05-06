@@ -4,11 +4,11 @@ public class Main {
     public static void main(String[] args) {
       GestorCursos gestor = new GestorCursos();
 
-     gestor.getAlumnos().add(new Alumno("Lucía", "111A", "Perez", "A01"));
+     gestor.getAlumnos().add(new Alumno("Lucia", "111A", "Perez", "A01"));
      gestor.getAlumnos().add(new Alumno("Carlos", "222B", "Lopez", "A02"));
      gestor.getAlumnos().add(new Alumno("Ana", "333C", "Gomez", "A03"));
 
-     gestor.getCursos().add(new Curso("Programación", "C01"));
+     gestor.getCursos().add(new Curso("Programacion", "C01"));
      gestor.getCursos().add(new Curso("Base de Datos", "C02"));
      gestor.getCursos().add(new Curso("Diseño Web", "C03"));
 

@@ -100,7 +100,7 @@ public class GestorCursos {
 
 //----6-- INSCRIBIR UN ALUMNO A UN CURSO----------------
     public void inscribirAlumnoACurso(Scanner sc) {
-        
+    
         System.out.print("Nombre del alumno: ");
         String nombre = sc.nextLine().trim();
         System.out.print("Apellido del alumno: ");
