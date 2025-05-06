@@ -30,8 +30,9 @@ public class Main {
             System.out.println("8. Mostrar cursos de un alumno");
             System.out.println("9. Eliminar alumno");
             System.out.println("10. Eliminar curso");
+            System.out.println("11. Filtrar cursos");
+            System.out.println("12. Filtrar alumnos");
             System.out.println("0. Salir");
-            System.out.print("Selecciona una opción: ");
             opcion = Integer.parseInt(sc.nextLine());
 
             switch (opcion) {
@@ -42,10 +43,10 @@ public class Main {
                   gestor.añadirCurso(sc);
                   break;
               case 3:
-                  gestor.mostrarAlumnos(sc);
+                  gestor.mostrarAlumnos();
                   break;
               case 4:
-                  gestor.mostrarCursos(sc);
+                  gestor.mostrarCursos();
                   break;
               case 5:
                   gestor.buscarAlumno(sc);
@@ -66,9 +67,10 @@ public class Main {
                   gestor.eliminarCurso(sc);
                   break;
               case 11:
+              gestor.mostrarCursosFiltrados(sc);
                   break;
               case 12:
-
+              gestor.mostrarAlumnosFiltrados(sc);
                   break;
               case 0:
                   System.out.println("Saliendo...");
