@@ -277,11 +277,10 @@ public void eliminarCurso(Scanner sc) {
         int opcion = sc.nextInt();
         sc.nextLine(); 
     
-        Comparator<Curso> comparador; //declaración 
-    
+        Comparator<Curso> comparador; //declaración de la variable comparator fuera 
         switch (opcion) {
             case 1:
-                comparador = new Comparator<Curso>() {
+                comparador = new Comparator<Curso>()   {//se le asigna el valor solo para este case
                     public int compare(Curso c1, Curso c2) {
                         return c1.getCodigo().compareToIgnoreCase(c2.getCodigo());
                     }
