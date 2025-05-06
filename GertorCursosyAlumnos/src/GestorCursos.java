@@ -196,7 +196,7 @@ public void mostrarCursosDeUnAlumno(Scanner sc) {
     boolean tieneCursos = false;
     for (Curso c : cursos) {
         Set<Alumno> inscritos = inscripciones.get(c); //busca en el mapa los alumnos inscritos a c
-        if (inscritos.contains(alumnoEncontrado)) {  // verifica q dicho alumno esta dentro del conjunto.  //inscritos != null && NullPointerException
+        if (inscritos != null && inscritos.contains(alumnoEncontrado)) {  // verifica q dicho alumno esta dentro del conjunto.  //inscritos != null && NullPointerException
             System.out.println( c.getNombre());
             tieneCursos = true;
         }
